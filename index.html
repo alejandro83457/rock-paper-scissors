@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Rock Paper Scissors!</title>
+    </head>
+    <body>
+        <script>
+            const choices = ["rock", "paper", "scissors"];
+
+            // Function returns a random element of choices array.
+            const randomChoice = () =>
+                choices[Math.floor(Math.random() * choices.length)];
+
+            const getPlayerChoice = () => {
+                while (true) {
+                    // Ask user for input.
+                    let playerChoice = prompt(
+                        "Type rock, paper, or scissors."
+                    ).toLowerCase();
+
+                    // Check if input is valid.
+                    if (choices.includes(playerChoice)) {
+                        return playerChoice;
+                    }
+
+                    console.error("Invalid choice! Try again.");
+                }
+            };
+
+            // Function takes two choices and determines who is the winner.
+            // 0 tie; 1 win; -1 lose
+            const gameRound = (userChoice, computerChoice) => {
+                console.log(`You: ${userChoice} Computer: ${computerChoice}`);
+                if (userChoice == "rock") {
+                    if (computerChoice == "rock") return 0;
+                    else if (computerChoice == "paper") return -1;
+                    else return 1;
+                } else if (userChoice == "paper") {
+                    if (computerChoice == "paper") return 0;
+                    else if (computerChoice == "scissors") return -1;
+                    else return 1;
+                } else {
+                    if (computerChoice == "scissors") return 0;
+                    else if (computerChoice == "rock") return -1;
+                    else return 1;
+                }
+            };
+
+            const game = () => {
+                let userScore = 0,
+                    computerScore = 0;
+
+                for (let i = 0; i < 5; ) {
+                    let computerChoice = randomChoice();
+                    let playerChoice = getPlayerChoice();
+                    let match = gameRound(playerChoice, computerChoice);
+
+                    // Keep track of wins/loses/ties.
+                    if (match == 1) {
+                        userScore++;
+                        i++;
+                        console.log(
+                            `You win this match! ${playerChoice} beats ${computerChoice}`
+                        );
+                    } else if (match == -1) {
+                        computerScore++;
+                        i++;
+                        console.log(
+                            `You lose this match! ${computerChoice} beats ${playerChoice}`
+                        );
+                    } else {
+                        console.log(`Tie! Go again.`);
+                    }
+                    console.log(`Score: ${userScore} ${computerScore}`);
+                }
+
+                // Determine winner.
+                if (userScore > computerScore) console.log("User wins!!");
+                else if (userScore < computerScore)
+                    console.log("Computer wins!!");
+                else console.log("Tie!!");
+            };
+
+            // Start the game.
+            game();
+        </script>
+    </body>
+</html>
