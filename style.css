@@ -14,7 +14,7 @@ body {
     display: flex;
     padding: 2em;
     gap: 1em;
-    width: 500px;
+    width: 400px;
 }
 
 button {
@@ -26,4 +26,8 @@ button {
 #current-winner {
     font-size: 30px;
     height: 30px;
+}
+
+#reset-button button {
+    width: 400px;
 }

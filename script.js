@@ -12,11 +12,23 @@ const paper_button = document.querySelector("#paper-button");
 const scissors_button = document.querySelector("#scissors-button");
 const score_div = document.querySelector("#score");
 const current_div = document.querySelector("#current-winner");
+const button_div = document.querySelector("#reset-button");
+
+const reset_button = document.createElement("button");
+reset_button.textContent = "PLAY AGAIN";
 
 // Event listeners
 rock_button.addEventListener("click", () => executeButton("rock"));
 paper_button.addEventListener("click", () => executeButton("paper"));
 scissors_button.addEventListener("click", () => executeButton("scissors"));
+reset_button.addEventListener("click", () => {
+    play = 1;
+    playerScore = 0;
+    computerScore = 0;
+    score_div.textContent = "Score: 0 - 0";
+    current_div.textContent = "";
+    reset_button.remove();
+});
 
 // Button callback function
 const executeButton = (type) => {
@@ -34,6 +46,9 @@ const checkScores = () => {
         else if (playerScore < computerScore)
             current_div.textContent = "YOU LOST";
         else current_div = "TIE";
+
+        button_div.appendChild(reset_button);
+
         return 0;
     }
 };
