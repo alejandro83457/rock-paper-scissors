@@ -1,6 +1,7 @@
 const choices = ["rock", "paper", "scissors"];
 let playerScore = 0,
-    computerScore = 0;
+    computerScore = 0,
+    play = 1;
 
 // Function returns a random element of choices array.
 const randomChoice = () => choices[Math.floor(Math.random() * choices.length)];
@@ -13,22 +14,35 @@ const score_div = document.querySelector("#score");
 const current_div = document.querySelector("#current-winner");
 
 // Event listeners
-rock_button.addEventListener("click", () => {
-    playRound("rock");
-});
-paper_button.addEventListener("click", () => {
-    playRound("paper");
-});
-scissors_button.addEventListener("click", () => {
-    playRound("scissors");
-});
+rock_button.addEventListener("click", () => executeButton("rock"));
+paper_button.addEventListener("click", () => executeButton("paper"));
+scissors_button.addEventListener("click", () => executeButton("scissors"));
+
+// Button callback function
+const executeButton = (type) => {
+    if (play) {
+        playRound(type);
+        play = checkScores();
+    }
+};
+
+// Function keeps track of who is winning
+const checkScores = () => {
+    if (Math.max(playerScore, computerScore) < 5) return 1;
+    else {
+        if (playerScore > computerScore) current_div.textContent = "YOU WON";
+        else if (playerScore < computerScore)
+            current_div.textContent = "YOU LOST";
+        else current_div = "TIE";
+        return 0;
+    }
+};
 
 // Function takes one choice and determines who is the winner.
 // 0 tie; 1 win; -1 lose
 const playRound = (playerChoice) => {
     let computerChoice = randomChoice();
 
-    console.log(`You: ${playerChoice} Computer: ${computerChoice}`);
     let roundWinner = determineMatchWinner(playerChoice, computerChoice);
     if (roundWinner == 1) {
         playerScore++;
